@@ -10,7 +10,7 @@ import java.util.Optional;
  */
 public interface UnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, Long> {
 
-    public Optional<UnitOfMeasure> findByName(String name);
+    Optional<UnitOfMeasure> findByName(String name);
 
-    public Optional<UnitOfMeasure> findByAbbr(String name);
+    Optional<UnitOfMeasure> findByAbbr(String name);
 }
