@@ -1,6 +1,7 @@
 package me.cheznic.learning.recipe.repositories;
 
 import me.cheznic.learning.recipe.model.UnitOfMeasure;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,23 @@ public class UnitOfMeasureRepositoryIT {
     @Autowired
     UnitOfMeasureRepository unitOfMeasureRepository;
 
+    @Before
+    public void setUp() throws Exception {
+    }
 
     @Test
-    public void findByDescription() {
+    public void findByDescription() throws Exception {
 
-        String uom = "Teaspoon";
+        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
 
-        Optional<UnitOfMeasure> unitOfMeasure = unitOfMeasureRepository.findByDescription(uom);
+        assertEquals("Teaspoon", uomOptional.get().getDescription());
+    }
 
-        assertEquals(uom, unitOfMeasure.get().getDescription());
+    @Test
+    public void findByDescriptionCup() throws Exception {
+
+        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Cup");
+
+        assertEquals("Cup", uomOptional.get().getDescription());
     }
 }
