@@ -10,5 +10,5 @@ import java.util.Optional;
  */
 public interface CategoryRepository extends CrudRepository<Category, Long> {
 
-    public Optional<Category> findByDescription(String description);
+    Optional<Category> findByDescription(String description);
 }
