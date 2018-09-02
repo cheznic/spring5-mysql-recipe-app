@@ -17,8 +17,7 @@ public class UnitOfMeasure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String abbr;
-    private String name;
+    private String description;
 
 }
 

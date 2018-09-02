@@ -18,17 +18,14 @@ public class UnitOfMeasureRepositoryIT {
     @Autowired
     UnitOfMeasureRepository unitOfMeasureRepository;
 
-    @Test
-    public void findByName() {
-    }
 
     @Test
-    public void findByAbbr() {
+    public void findByDescription() {
 
-        String uom = "tsp";
+        String uom = "Teaspoon";
 
-        Optional<UnitOfMeasure> unitOfMeasure = unitOfMeasureRepository.findByAbbr(uom);
+        Optional<UnitOfMeasure> unitOfMeasure = unitOfMeasureRepository.findByDescription(uom);
 
-        assertEquals(uom, unitOfMeasure.get().getAbbr());
+        assertEquals(uom, unitOfMeasure.get().getDescription());
     }
 }
