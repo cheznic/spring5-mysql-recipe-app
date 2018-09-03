@@ -109,7 +109,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacRecipe.setDescription("Perfect Guacamole");
         guacRecipe.setPrepTime(10);
         guacRecipe.setCookTime(32);
-        guacRecipe.setDifficulty(Difficulty.EASY);
+        guacRecipe.setDifficulty(Difficulty.Easy);
         guacRecipe.setSource("Easy Cooking");
         guacRecipe.setServings(3);
         guacRecipe.setUrl("http://www.somecookingsite.com");
@@ -158,7 +158,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         tacosRecipe.setDescription("Spicy Grilled Chicken Taco");
         tacosRecipe.setCookTime(9);
         tacosRecipe.setPrepTime(20);
-        tacosRecipe.setDifficulty(Difficulty.MODERATE);
+        tacosRecipe.setDifficulty(Difficulty.Moderate);
         tacosRecipe.setSource("Texas Cooking");
         tacosRecipe.setServings(3);
         tacosRecipe.setUrl("http://www.aCookingsite.com");

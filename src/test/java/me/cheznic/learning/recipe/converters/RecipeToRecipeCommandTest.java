@@ -17,7 +17,7 @@ public class RecipeToRecipeCommandTest {
     public static final Integer PREP_TIME = Integer.valueOf("7");
     public static final String DESCRIPTION = "My Recipe";
     public static final String DIRECTIONS = "Directions";
-    public static final Difficulty DIFFICULTY = Difficulty.EASY;
+    public static final Difficulty DIFFICULTY = Difficulty.Easy;
     public static final Integer SERVINGS = Integer.valueOf("3");
     public static final String SOURCE = "Source";
     public static final String URL = "Some URL";
