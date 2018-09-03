@@ -1,7 +1,8 @@
 package me.cheznic.learning.recipe.model;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -9,7 +10,8 @@ import java.math.BigDecimal;
 /**
  * Created by Charles Nicoletti on 8/25/18
  */
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Ingredient {

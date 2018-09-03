@@ -2,6 +2,8 @@ package me.cheznic.learning.recipe.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import me.cheznic.learning.recipe.commands.IngredientCommand;
+import me.cheznic.learning.recipe.commands.RecipeCommand;
+import me.cheznic.learning.recipe.commands.UnitOfMeasureCommand;
 import me.cheznic.learning.recipe.services.IngredientService;
 import me.cheznic.learning.recipe.services.RecipeService;
 import me.cheznic.learning.recipe.services.UnitOfMeasureService;
@@ -45,13 +47,34 @@ public class IngredientController {
                                         @PathVariable String ingredientId,
                                         Model model) {
 
-
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId),Long.valueOf(ingredientId)));
 
         log.debug("Showing ingredient of id: " + ingredientId);
 
         return "recipe/ingredient/show";
     }
+
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    public String newRecipe(@PathVariable String recipeId, Model model) {
+
+        //make sure we have a good id
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+        //todo throw exeception if bad ID
+
+        //need to return back parent id for hidden form property
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+
+        //init uom
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientform";
+    }
+
 
     @GetMapping
     @RequestMapping("recipe/{recipeId}/ingredient/{id}/update")
