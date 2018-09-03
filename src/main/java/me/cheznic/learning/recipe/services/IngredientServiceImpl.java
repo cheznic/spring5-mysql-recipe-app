@@ -102,7 +102,7 @@ public class IngredientServiceImpl implements IngredientService {
                 .filter(recipeIngredients -> recipeIngredients.getId().equals(ingredientCommand.getId()))
                 .findFirst();
 
-        if(!savedOptionalIngredient.isPresent()) {
+        if (!savedOptionalIngredient.isPresent()) {
             savedOptionalIngredient = savedRecipe
                     .getIngredients()
                     .stream()
@@ -114,5 +114,37 @@ public class IngredientServiceImpl implements IngredientService {
 
         //to do check for fail
         return ingredientToIngredientCommand.convert(savedOptionalIngredient.get());
+    }
+
+    @Override
+    public void deleteByRecipeIdAndIngredientId(Long recipeId, Long idToDelete) {
+
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(recipeId);
+
+        if (!optionalRecipe.isPresent()) {
+            log.debug("Did not find recipe with ingredient to delete. Recipe id: " + recipeId + " Ingredient id: " + idToDelete);
+            return; // todo throw exception
+        }
+
+        Recipe recipe = optionalRecipe.get();
+
+        Optional<Ingredient> optionalIngredient = recipe
+                .getIngredients()
+                .stream()
+                .filter(ingredient -> ingredient.getId().equals(idToDelete))
+                .findFirst();
+
+        //recipe.getIngredients().removeIf(ingredient -> ingredient.getId().equals(idToDelete));
+
+        if (!optionalIngredient.isPresent()) {
+            log.debug("Did not find ingredient to delete with id: " + idToDelete);
+            return; //todo throw exception
+        }
+
+        optionalIngredient.get().setRecipe(null);
+        recipe.getIngredients().remove(optionalIngredient.get());
+        recipeRepository.save(recipe);
+
+        log.debug("Deleting ingredient with id: " + idToDelete + "from recipe: " + recipeId);
     }
 }
