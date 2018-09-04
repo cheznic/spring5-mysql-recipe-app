@@ -2,13 +2,14 @@ package me.cheznic.learning.recipe.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import me.cheznic.learning.recipe.commands.RecipeCommand;
+import me.cheznic.learning.recipe.exceptions.BadRequestException;
+import me.cheznic.learning.recipe.exceptions.NotFoundException;
 import me.cheznic.learning.recipe.services.RecipeService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by Charles Nicoletti on 9/1/18
@@ -26,6 +27,12 @@ public class RecipeController {
     @GetMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model) {
 
+        if (!isNumeric(id)) {
+            String message = "Recipe identifier must be a positive integer.  Value received is: " + id;
+            log.warn(message);
+            throw new BadRequestException(message);
+        }
+
         model.addAttribute("recipe", recipeService.findById(new Long(id)));
 
         return "recipe/show";
@@ -39,6 +46,13 @@ public class RecipeController {
 
     @GetMapping("recipe/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model) {
+
+        if (!isNumeric(id)) {
+            String message = "Recipe identifier must be a positive integer.  Value received is: " + id;
+            log.warn(message);
+            throw new BadRequestException(message);
+        }
+
         model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
         return "recipe/recipeform";
     }
@@ -52,9 +66,43 @@ public class RecipeController {
 
     @GetMapping("recipe/{id}/delete")
     public String deleteById(@PathVariable String id) {
-        log.debug("Deleting id: " + id);
+
+        if (!isNumeric(id)) {
+            String message = "Recipe identifier must be a positive integer.  Value received is: " + id;
+            log.warn(message);
+            throw new BadRequestException(message);
+        }
 
         recipeService.deleteById(Long.valueOf(id));
+        log.debug("Deleting id: " + id);
+
         return "redirect:/";
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound(Exception e){
+
+        //log.error("Handling not found exception");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("404error");
+        modelAndView.addObject("exception", e);
+
+        return modelAndView;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(BadRequestException.class)
+    public ModelAndView handleBadRequest(Exception e){
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("400error");
+        modelAndView.addObject("exception", e);
+
+        return modelAndView;
+    }
+
+    private boolean isNumeric(String s) {
+        return s.matches("\\d+");
     }
 }
