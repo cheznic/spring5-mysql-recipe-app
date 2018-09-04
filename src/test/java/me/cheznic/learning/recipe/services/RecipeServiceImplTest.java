@@ -3,6 +3,7 @@ package me.cheznic.learning.recipe.services;
 import me.cheznic.learning.recipe.commands.RecipeCommand;
 import me.cheznic.learning.recipe.converters.RecipeCommandToRecipe;
 import me.cheznic.learning.recipe.converters.RecipeToRecipeCommand;
+import me.cheznic.learning.recipe.exceptions.NotFoundException;
 import me.cheznic.learning.recipe.model.Recipe;
 import me.cheznic.learning.recipe.repositories.RecipeRepository;
 import org.junit.Before;
@@ -50,6 +51,18 @@ public class RecipeServiceImplTest {
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
     }
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdTestNotFound() throws Exception {
+
+        Optional<Recipe> optionalRecipe = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(optionalRecipe);
+
+        Recipe recipeReturned = recipeService.findById(1L);
+        //should go boom
+    }
+
 
     @Test
     public void getRecipeCommandByIdTest() throws Exception {

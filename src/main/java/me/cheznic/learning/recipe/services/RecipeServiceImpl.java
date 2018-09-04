@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.cheznic.learning.recipe.commands.RecipeCommand;
 import me.cheznic.learning.recipe.converters.RecipeCommandToRecipe;
 import me.cheznic.learning.recipe.converters.RecipeToRecipeCommand;
+import me.cheznic.learning.recipe.exceptions.NotFoundException;
 import me.cheznic.learning.recipe.model.Recipe;
 import me.cheznic.learning.recipe.repositories.RecipeRepository;
 import org.springframework.stereotype.Service;
@@ -39,12 +40,14 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     public Recipe findById(Long id) {
-        Optional<Recipe> recipe = recipeRepository.findById(id);
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
 
-        if (!recipe.isPresent())
-            throw new RuntimeException("Recipe not found!");
+        if (!optionalRecipe.isPresent()) {
+            log.error("Recipe with id: " + id + " was not found.");
+            throw new NotFoundException("Recipe with id: " + id + " was not found.");
+        }
 
-        return recipe.get();
+        return optionalRecipe.get();
     }
 
     @Override

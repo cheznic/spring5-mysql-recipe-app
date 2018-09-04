@@ -1,6 +1,7 @@
 package me.cheznic.learning.recipe.controllers;
 
 import me.cheznic.learning.recipe.commands.RecipeCommand;
+import me.cheznic.learning.recipe.exceptions.NotFoundException;
 import me.cheznic.learning.recipe.model.Recipe;
 import me.cheznic.learning.recipe.services.RecipeService;
 import org.junit.Before;
@@ -49,6 +50,16 @@ public class RecipeControllerTest {
                 .andExpect(view().name("recipe/show"))
                 .andExpect(model().attributeExists("recipe"));
     }
+
+    @Test
+    public void testGetRecipeNotFound() throws Exception {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound());
+    }
+
 
     @Test
     public void testGetNewRecipeForm() throws Exception {
