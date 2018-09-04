@@ -1,6 +1,7 @@
 package me.cheznic.learning.recipe.controllers;
 
 import me.cheznic.learning.recipe.commands.RecipeCommand;
+import me.cheznic.learning.recipe.exceptions.BadRequestException;
 import me.cheznic.learning.recipe.exceptions.NotFoundException;
 import me.cheznic.learning.recipe.model.Recipe;
 import me.cheznic.learning.recipe.services.RecipeService;
@@ -34,7 +35,10 @@ public class RecipeControllerTest {
         MockitoAnnotations.initMocks(this);
 
         recipeController = new RecipeController(recipeService);
-        mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+
+        mockMvc = MockMvcBuilders.standaloneSetup(recipeController)
+                .setControllerAdvice(new ExceptionsController())
+                .build();
     }
 
     @Test
@@ -64,7 +68,7 @@ public class RecipeControllerTest {
     @Test
     public void testGetBadRequest() throws Exception {
 
-        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+        when(recipeService.findById(anyLong())).thenThrow(BadRequestException.class);
 
         mockMvc.perform(get("/recipe/q/show"))
                 .andExpect(status().isBadRequest())
@@ -74,7 +78,6 @@ public class RecipeControllerTest {
 
     @Test
     public void testGetNewRecipeForm() throws Exception {
-        //RecipeCommand command = new RecipeCommand();
 
         mockMvc.perform(get("/recipe/new"))
                 .andExpect(status().isOk())
