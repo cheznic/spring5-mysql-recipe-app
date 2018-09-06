@@ -16,5 +16,6 @@ Technologies used:
 - [Lombok tag library](https://github.com/rzwitserloot/lombok)
 - [JSR 303: For input validation](https://jcp.org/en/jsr/detail?id=303)
 - [H2](http://www.h2database.com/) and [MySQL](https://www.mysql.com/) databases
+- [Maven for build management](https://maven.apache.org/)
 - [CircleCI for build automation](https://circleci.com/gh/cheznic/spring5-recipe-app)
 
