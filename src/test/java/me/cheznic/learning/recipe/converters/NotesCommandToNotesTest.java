@@ -11,9 +11,9 @@ import static org.junit.Assert.*;
  * Created by Charles Nicoletti on 9/1/18
  */
 public class NotesCommandToNotesTest {
-    public static final Long ID_VALUE = new Long(1L);
-    public static final String RECIPE_NOTES = "Notes";
-    NotesCommandToNotes converter;
+    private static final Long ID_VALUE = 1L;
+    private static final String RECIPE_NOTES = "Notes";
+    private NotesCommandToNotes converter;
 
     @Before
     public void setUp() throws Exception {

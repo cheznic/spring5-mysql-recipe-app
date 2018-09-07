@@ -21,7 +21,7 @@ public class ImageServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
-    ImageService imageService;
+    private ImageService imageService;
 
     @Before
     public void setUp() throws Exception {

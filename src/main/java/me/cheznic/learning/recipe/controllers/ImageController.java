@@ -22,6 +22,7 @@ import java.io.InputStream;
 /**
  * Created by Charles Nicoletti on 9/3/18
  */
+@SuppressWarnings("SameReturnValue")
 @Slf4j
 @Controller
 public class ImageController {
@@ -35,10 +36,11 @@ public class ImageController {
         this.recipeService = recipeService;
     }
 
+    @SuppressWarnings("SameReturnValue")
     @GetMapping("/recipe/{id}/image")
     public String showUploadForm(@PathVariable String id, Model model) {
 
-        if (!isNumeric(id)) {
+        if (isNotNumeric(id)) {
             String message = "Recipe identifier must be a positive integer.  Value received is: " + id;
             log.warn(message);
             throw new BadRequestException(message);
@@ -52,7 +54,7 @@ public class ImageController {
     @PostMapping("recipe/{id}/image")
     public String handleImagePost(@PathVariable String id, @RequestParam("imagefile") MultipartFile file) {
 
-        if (!isNumeric(id)) {
+        if (isNotNumeric(id)) {
             String message = "Recipe identifier must be a positive integer.  Value received is: " + id;
             log.warn(message);
             throw new BadRequestException(message);
@@ -66,7 +68,7 @@ public class ImageController {
     @GetMapping("recipe/{id}/recipeimage")
     public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
 
-        if (!isNumeric(id)) {
+        if (isNotNumeric(id)) {
             String message = "Recipe identifier must be a positive integer.  Value received is: " + id;
             log.warn(message);
             throw new BadRequestException(message);
@@ -88,7 +90,7 @@ public class ImageController {
         }
     }
 
-    private boolean isNumeric(String s) {
-        return s.matches("\\d+");
+    private boolean isNotNumeric(String s) {
+        return !s.matches("\\d+");
     }
 }

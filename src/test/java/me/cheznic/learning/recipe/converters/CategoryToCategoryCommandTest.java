@@ -12,9 +12,9 @@ import static org.junit.Assert.*;
  */
 public class CategoryToCategoryCommandTest {
 
-    public static final Long ID_VALUE = new Long(1L);
-    public static final String DESCRIPTION = "descript";
-    CategoryToCategoryCommand convter;
+    private static final Long ID_VALUE = 1L;
+    private static final String DESCRIPTION = "descript";
+    private CategoryToCategoryCommand convter;
 
     @Before
     public void setUp() throws Exception {

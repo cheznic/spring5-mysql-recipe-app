@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 /**
  * Created by Charles Nicoletti on 8/24/18
  */
+@SuppressWarnings("SameReturnValue")
 @Slf4j
 @Controller
 public class IndexController {

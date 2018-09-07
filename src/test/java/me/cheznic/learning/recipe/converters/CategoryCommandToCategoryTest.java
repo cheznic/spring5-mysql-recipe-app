@@ -11,9 +11,9 @@ import static org.junit.Assert.*;
  * Created by Charles Nicoletti on 9/1/18
  */
 public class CategoryCommandToCategoryTest {
-    public static final Long ID_VALUE = new Long(1L);
-    public static final String DESCRIPTION = "description";
-    CategoryCommandToCategory conveter;
+    private static final Long ID_VALUE = 1L;
+    private static final String DESCRIPTION = "description";
+    private CategoryCommandToCategory conveter;
 
     @Before
     public void setUp() throws Exception {

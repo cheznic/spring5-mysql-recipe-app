@@ -16,12 +16,12 @@ import static org.junit.Assert.*;
  */
 public class IngredientCommandToIngredientTest {
     public static final Recipe RECIPE = new Recipe();
-    public static final BigDecimal AMOUNT = new BigDecimal("1");
-    public static final String DESCRIPTION = "Cheeseburger";
-    public static final Long ID_VALUE = new Long(1L);
-    public static final Long UOM_ID = new Long(2L);
+    private static final BigDecimal AMOUNT = new BigDecimal("1");
+    private static final String DESCRIPTION = "Cheeseburger";
+    private static final Long ID_VALUE = new Long(1L);
+    private static final Long UOM_ID = new Long(2L);
 
-    IngredientCommandToIngredient converter;
+    private IngredientCommandToIngredient converter;
 
     @Before
     public void setUp() throws Exception {

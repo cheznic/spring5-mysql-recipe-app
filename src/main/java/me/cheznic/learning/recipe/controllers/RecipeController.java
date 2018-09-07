@@ -17,6 +17,7 @@ import javax.validation.Valid;
 /**
  * Created by Charles Nicoletti on 9/1/18
  */
+@SuppressWarnings("SameReturnValue")
 @Slf4j
 @Controller
 public class RecipeController {
@@ -32,7 +33,7 @@ public class RecipeController {
     @GetMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model) {
 
-        if (!isNumeric(id)) {
+        if (isNotNumeric(id)) {
             String message = "Recipe identifier must be a positive integer.  Value received is: " + id;
             log.warn(message);
             throw new BadRequestException(message);
@@ -52,7 +53,7 @@ public class RecipeController {
     @GetMapping("recipe/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model) {
 
-        if (!isNumeric(id)) {
+        if (isNotNumeric(id)) {
             String message = "Recipe identifier must be a positive integer.  Value received is: " + id;
             log.warn(message);
             throw new BadRequestException(message);
@@ -78,7 +79,7 @@ public class RecipeController {
     @GetMapping("recipe/{id}/delete")
     public String deleteById(@PathVariable String id) {
 
-        if (!isNumeric(id)) {
+        if (isNotNumeric(id)) {
             String message = "Recipe identifier must be a positive integer.  Value received is: " + id;
             log.warn(message);
             throw new BadRequestException(message);
@@ -101,7 +102,7 @@ public class RecipeController {
         return modelAndView;
     }
 
-    private boolean isNumeric(String s) {
-        return s.matches("\\d+");
+    private boolean isNotNumeric(String s) {
+        return !s.matches("\\d+");
     }
 }

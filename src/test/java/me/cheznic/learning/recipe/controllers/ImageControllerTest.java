@@ -29,9 +29,9 @@ public class ImageControllerTest {
     @Mock
     RecipeService recipeService;
 
-    ImageController imageController;
+    private ImageController imageController;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Before
     public void setUp() throws Exception {

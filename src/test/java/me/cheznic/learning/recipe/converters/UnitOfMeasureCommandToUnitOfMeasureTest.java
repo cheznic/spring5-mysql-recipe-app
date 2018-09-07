@@ -11,10 +11,10 @@ import static org.junit.Assert.*;
  * Created by Charles Nicoletti on 9/1/18
  */
 public class UnitOfMeasureCommandToUnitOfMeasureTest {
-    public static final String DESCRIPTION = "description";
-    public static final Long LONG_VALUE = new Long(1L);
+    private static final String DESCRIPTION = "description";
+    private static final Long LONG_VALUE = 1L;
 
-    UnitOfMeasureCommandToUnitOfMeasure converter;
+    private UnitOfMeasureCommandToUnitOfMeasure converter;
 
     @Before
     public void setUp() throws Exception {
@@ -23,7 +23,7 @@ public class UnitOfMeasureCommandToUnitOfMeasureTest {
     }
 
     @Test
-    public void testNullParamter() throws Exception {
+    public void testNullParameter() throws Exception {
         assertNull(converter.convert(null));
     }
 

@@ -12,11 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-;
-
 /**
  * Created by Charles Nicoletti on 9/2/18
  */
+@SuppressWarnings("SameReturnValue")
 @Slf4j
 @Controller
 public class IngredientController {
@@ -35,7 +34,7 @@ public class IngredientController {
     @RequestMapping("/recipe/{recipeId}/ingredients")
     public String listIngredients(@PathVariable String recipeId, Model model) {
 
-        if (!isNumeric(recipeId)) {
+        if (isNotNumeric(recipeId)) {
             String message = "Recipe identifier must be a positive integer.  Value received is: " + recipeId;
             log.warn(message);
             throw new BadRequestException(message);
@@ -53,7 +52,7 @@ public class IngredientController {
                                         @PathVariable String ingredientId,
                                         Model model) {
 
-        if (!isNumeric(recipeId)) {
+        if (isNotNumeric(recipeId)) {
             String message = "Recipe identifier must be a positive integer.  Value received is: " + recipeId;
             log.warn(message);
             throw new BadRequestException(message);
@@ -70,7 +69,7 @@ public class IngredientController {
     @RequestMapping("recipe/{recipeId}/ingredient/new")
     public String newRecipe(@PathVariable String recipeId, Model model) {
 
-        if (!isNumeric(recipeId)) {
+        if (isNotNumeric(recipeId)) {
             String message = "Recipe identifier must be a positive integer.  Value received is: " + recipeId;
             log.warn(message);
             throw new BadRequestException(message);
@@ -96,7 +95,7 @@ public class IngredientController {
     public String updateRecipeIngredient(@PathVariable String recipeId,
                                          @PathVariable String id, Model model) {
 
-        if (!isNumeric(recipeId)) {
+        if (isNotNumeric(recipeId)) {
             String message = "Recipe identifier must be a positive integer.  Value received is: " + recipeId;
             log.warn(message);
             throw new BadRequestException(message);
@@ -113,7 +112,7 @@ public class IngredientController {
     @PostMapping("recipe/{recipeId}/ingredient")
     public String saveOrUpdate(@PathVariable String recipeId, @ModelAttribute IngredientCommand command) {
 
-        if (!isNumeric(recipeId)) {
+        if (isNotNumeric(recipeId)) {
             String message = "Recipe identifier must be a positive integer.  Value received is: " + recipeId;
             log.warn(message);
             throw new BadRequestException(message);
@@ -130,7 +129,7 @@ public class IngredientController {
     @GetMapping("recipe/{recipeId}/ingredient/{ingredientId}/delete")
     public String deleteById(@PathVariable String ingredientId, @PathVariable String recipeId) {
 
-        if (!isNumeric(recipeId)) {
+        if (isNotNumeric(recipeId)) {
             String message = "Recipe identifier must be a positive integer.  Value received is: " + recipeId;
             log.warn(message);
             throw new BadRequestException(message);
@@ -142,7 +141,7 @@ public class IngredientController {
         return "redirect:/recipe/" + recipeId + "/ingredients";
     }
 
-    private boolean isNumeric(String s) {
-        return s.matches("\\d+");
+    private boolean isNotNumeric(String s) {
+        return !s.matches("\\d+");
     }
 }
