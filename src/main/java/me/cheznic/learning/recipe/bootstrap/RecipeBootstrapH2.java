@@ -6,6 +6,7 @@ import me.cheznic.learning.recipe.repositories.CategoryRepository;
 import me.cheznic.learning.recipe.repositories.RecipeRepository;
 import me.cheznic.learning.recipe.repositories.UnitOfMeasureRepository;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +21,14 @@ import java.util.Optional;
  */
 @Slf4j
 @Component
-public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
+@Profile("default")
+public class RecipeBootstrapH2 implements ApplicationListener<ContextRefreshedEvent> {
 
     private final CategoryRepository categoryRepository;
     private final RecipeRepository recipeRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
-    public RecipeBootstrap(CategoryRepository categoryRepository, RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
+    public RecipeBootstrapH2(CategoryRepository categoryRepository, RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
         this.categoryRepository = categoryRepository;
         this.recipeRepository = recipeRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
