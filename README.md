@@ -1,4 +1,4 @@
-# Spring Boot Recipe Application
+# Spring 5 and MySQL Recipe Application
 
 [![CircleCI](https://circleci.com/gh/cheznic/spring5-recipe-app.svg?style=svg)](https://circleci.com/gh/cheznic/spring5-recipe-app)
 
